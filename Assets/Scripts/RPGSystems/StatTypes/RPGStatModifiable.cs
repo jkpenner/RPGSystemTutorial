@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class RPGStatModifiable : RPGStat, IStatModifiable, IStatValueChange {
     private List<RPGStatModifier> _statMods;
@@ -37,6 +38,36 @@ public class RPGStatModifiable : RPGStat, IStatModifiable, IStatValueChange {
 
     public void UpdateModifiers() {
         _statModValue = 0;
+
+        // Sort the statModifiers by their orders
+        _statMods.Sort((x, y) => x.Order.CompareTo(y.Order));
+        
+        var orderGroups = _statMods.GroupBy(mod => mod.Order);
+        foreach(var group in orderGroups) {
+            float sum = 0;
+            foreach(var mod in group) {
+                sum += mod.Value;
+            }
+            _statModValue += group.First().ApplyModifier(StatBaseValue + _statModValue, sum);
+        }
+
+
+
+        int orderValue = 0;
+        float sum = 0, max = 0;
+        foreach (var mod in _statMods) {
+            if (mod.Order == orderValue) {
+                if (mod.Type == RPGStatModifier.ModType.Max) {
+                    max = Mathf.Max(mod.Value, max);
+                } else if (mod.Type == RPGStatModifier.ModType.Sum) {
+                    sum += mod.Value;
+                }
+            } else {
+                if (sum != 0 || max != 0) {
+                    _statModValue = 
+                }
+            }
+        }
 
         float statModBaseValueAdd = 0;
         float statModBaseValuePercent = 0;

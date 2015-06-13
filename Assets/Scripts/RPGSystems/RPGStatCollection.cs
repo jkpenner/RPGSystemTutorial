@@ -42,4 +42,14 @@ public class RPGStatCollection {
         }
         return stat;
     }
+
+    public void AddModifier(RPGStatModifier mod) {
+
+    }
+
+    public void AddModifiers(RPGStatModifier[] mods) {
+
+    }
+
+    public void UpdateModifier(RPG
 }

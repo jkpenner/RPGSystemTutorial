@@ -1,22 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RPGStatModifier {
-    public enum Types {
-        None,
-        BaseValuePercent,
-        BaseValueAdd,
-        TotalValuePercent,
-        TotalValueAdd,
-    }
-
-    private Types _type;
+public abstract class RPGStatModifier {
+    private int _order;
     private float _value;
-    private RPGStatType _statType;
 
-    public Types Type {
-        get { return _type; }
-        set { _type = value; }
+    public int Order {
+        get { return _order; }
+        set { _order = value; }
     }
 
     public float Value {
@@ -24,20 +15,15 @@ public class RPGStatModifier {
         set { _value = value; }
     }
 
-    public RPGStatType StatType {
-        get { return _statType; }
-        set { _statType = value; }
-    }
-
     public RPGStatModifier() {
-        _type = Types.None;
+        _order = -1;
         _value = 0;
-        _statType = RPGStatType.None;
     }
 
-    public RPGStatModifier(RPGStatType targetStat, Types modType, float value) {
-        _type = modType;
-        _statType = targetStat;
+    public RPGStatModifier(int order, float value) {
+        _order = order;
         _value = value;
     }
+
+    public abstract int ApplyModifier(int statValue, float modValue);
 }
