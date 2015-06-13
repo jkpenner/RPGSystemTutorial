@@ -50,6 +50,4 @@ public class RPGStatCollection {
     public void AddModifiers(RPGStatModifier[] mods) {
 
     }
-
-    public void UpdateModifier(RPG
 }

@@ -2,27 +2,34 @@
 using System.Collections;
 
 public abstract class RPGStatModifier {
-    private int _order;
     private float _value;
+    private bool _stacks;
 
-    public int Order {
-        get { return _order; }
-        set { _order = value; }
-    }
+    public abstract int Order { get; }
 
     public float Value {
         get { return _value; }
         set { _value = value; }
     }
 
-    public RPGStatModifier() {
-        _order = -1;
-        _value = 0;
+    public bool Stacks {
+        get { return _stacks; }
+        set { _stacks = value; }
     }
 
-    public RPGStatModifier(int order, float value) {
-        _order = order;
+    public RPGStatModifier() {
+        _value = 0;
+        _stacks = true;
+    }
+
+    public RPGStatModifier(float value) {
         _value = value;
+        _stacks = true;
+    }
+
+    public RPGStatModifier(float value, bool stacks) {
+        _value = value;
+        _stacks = stacks;
     }
 
     public abstract int ApplyModifier(int statValue, float modValue);
