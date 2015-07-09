@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class RPGStatModifiable : RPGStat, IStatModifiable {
+public class RPGStatModifiable : RPGStat, IStatModifiable, IStatValueChange {
     private List<RPGStatModifier> _statMods;
     private int _statModValue;
+
+    public event System.EventHandler OnValueChange;
 
     public override int StatValue {
         get { return base.StatValue + StatModifierValue;}
@@ -17,6 +19,12 @@ public class RPGStatModifiable : RPGStat, IStatModifiable {
     public RPGStatModifiable() {
         _statModValue = 0;
         _statMods = new List<RPGStatModifier>();
+    }
+
+    protected void TriggerValueChange() {
+        if (OnValueChange != null) {
+            OnValueChange(this, null);
+        }
     }
 
     public void AddModifier(RPGStatModifier mod) {
@@ -54,5 +62,7 @@ public class RPGStatModifiable : RPGStat, IStatModifiable {
 
         _statModValue = (int)((StatBaseValue * statModBaseValuePercent) + statModBaseValueAdd);
         _statModValue += (int)((StatValue * statModTotalValuePercent) + statModTotalValueAdd);
+
+        TriggerValueChange();
     }
 }

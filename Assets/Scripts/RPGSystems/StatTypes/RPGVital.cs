@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 
-public class RPGVital : RPGAttribute {
+public class RPGVital : RPGAttribute, IStatCurrentValueChange {
     private int _statCurrentValue;
 
     public event EventHandler OnCurrentValueChange;
