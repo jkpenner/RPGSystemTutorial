@@ -32,6 +32,10 @@ public class RPGStatModifiable : RPGStat, IStatModifiable, IStatValueChange {
         _statMods.Add(mod);
     }
 
+    public void RemoveModifier(RPGStatModifier mod) {
+        _statMods.Add(mod);
+    }
+
     public void ClearModifiers() {
         _statMods.Clear();
     }
