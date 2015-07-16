@@ -1,10 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 /// <summary>
 /// The base class for all RPGStatModifiers
 /// </summary>
 public abstract class RPGStatModifier {
+    /// <summary>
+    /// Variable used for the Value property
+    /// </summary>
+    private float _value = 0f;
+
+    /// <summary>
+    /// Event that triggers when the Stat Modifier's Value property changes
+    /// </summary>
+    public event EventHandler OnValueChange;
+
     /// <summary>
     /// The order in which the modifier is applied to the stat
     /// </summary>
@@ -14,8 +25,22 @@ public abstract class RPGStatModifier {
     /// The value of the modifier that is combined with other
     /// modifiers of the same stat then is passed to ApplyModifier
     /// method to determine the final modifier value to apply to the stat
+    /// 
+    /// Triggers the OnValueChange event
     /// </summary>
-    public float Value { get; set; }
+    public float Value {
+        get {
+            return _value;
+        }
+        set {
+            if (_value != value) {
+                _value = value;
+                if (OnValueChange != null) {
+                    OnValueChange(this, null);
+                }
+            }
+        }
+    }
 
     /// <summary>
     /// Does the modifier's value stat with other modifiers of the 
