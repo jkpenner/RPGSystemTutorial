@@ -30,13 +30,18 @@ public class RPGStatModifiable : RPGStat, IStatModifiable, IStatValueChange {
 
     public void AddModifier(RPGStatModifier mod) {
         _statMods.Add(mod);
+        mod.OnValueChange += OnModValueChange;
     }
 
     public void RemoveModifier(RPGStatModifier mod) {
         _statMods.Add(mod);
+        mod.OnValueChange -= OnModValueChange;
     }
 
     public void ClearModifiers() {
+        foreach (var mod in _statMods) {
+            mod.OnValueChange -= OnModValueChange;
+        }
         _statMods.Clear();
     }
 
@@ -61,5 +66,9 @@ public class RPGStatModifiable : RPGStat, IStatModifiable, IStatValueChange {
                 sum > max ? sum : max);
         }
         TriggerValueChange();
+    }
+
+    public void OnModValueChange(object modifier, System.EventArgs args) {
+        UpdateModifiers();
     }
 }
