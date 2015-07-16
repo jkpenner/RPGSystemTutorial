@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Allows the stat to use modifiers
+/// </summary>
 public interface IStatModifiable {
     int StatModifierValue { get; }
 

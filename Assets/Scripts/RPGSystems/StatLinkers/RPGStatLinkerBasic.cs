@@ -21,7 +21,8 @@ public class RPGStatLinkerBasic : RPGStatLinker {
     /// <summary>
     /// Constructor that takes the linked stat and the ratio to use
     /// </summary>
-    public RPGStatLinkerBasic(RPGStat stat, float ratio) : base(stat) {
+    public RPGStatLinkerBasic(RPGStat stat, float ratio)
+        : base(stat) {
         _ratio = ratio;
     }
 }
