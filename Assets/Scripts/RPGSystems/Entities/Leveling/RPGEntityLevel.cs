@@ -14,29 +14,29 @@ public abstract class RPGEntityLevel : MonoBehaviour {
     /// Variable used for the Level Property
     /// </summary>
     [SerializeField]
-    private int _Level;
+    private int _Level = 0;
 
     /// <summary>
     /// Variable used for the LevelMin Property
     /// </summary>
     [SerializeField]
-    private int _LevelMin;
+    private int _LevelMin = 0;
 
     /// <summary>
     /// Variable used for the LevelMax Property
     /// </summary>
     [SerializeField]
-    private int _LevelMax;
+    private int _LevelMax = 100;
 
     /// <summary>
     /// Variable used for the ExpCurrent Property
     /// </summary>
-    private int _expCurrent;
+    private int _expCurrent = 0;
 
     /// <summary>
     /// Variable used for the ExpRequired Property
     /// </summary>
-    private int _expRequired;
+    private int _expRequired = 0;
 
     /// <summary>
     /// Triggers when experience is gained or lost
@@ -107,6 +107,10 @@ public abstract class RPGEntityLevel : MonoBehaviour {
     /// </summary>
     public abstract int GetExpRequiredForLevel(int level);
 
+    private void Awake() {
+        ExpRequired = GetExpRequiredForLevel(Level);
+    }
+
     /// <summary>
     /// Add or subtract a value from the current experience
     /// </summary>
@@ -175,6 +179,12 @@ public abstract class RPGEntityLevel : MonoBehaviour {
     /// </summary>
     public void IncreaseCurrentLevel() {
         Level++;
+
+        if (Level > LevelMax) {
+            Level = LevelMax;
+            ExpCurrent = GetExpRequiredForLevel(Level);
+        }
+
         ExpRequired = GetExpRequiredForLevel(Level);
         if (OnEntityLevelUp != null) {
             OnEntityLevelUp(this, new RPGLevelChangeEventArgs(Level, Level - 1));
@@ -187,6 +197,12 @@ public abstract class RPGEntityLevel : MonoBehaviour {
     /// </summary>
     public void DecreaseCurrentLevel() {
         Level--;
+
+        if (Level < LevelMin) {
+            Level = LevelMin;
+            ExpCurrent = 0;
+        }
+        
         ExpRequired = GetExpRequiredForLevel(Level);
         if (OnEntityLevelDown != null) {
             OnEntityLevelDown(this, new RPGLevelChangeEventArgs(Level, Level + 1));
