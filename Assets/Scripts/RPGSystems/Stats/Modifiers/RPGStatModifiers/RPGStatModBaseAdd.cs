@@ -4,6 +4,7 @@ using System.Collections;
 /// <summary>
 /// Modifier that adds the value to the stat value
 /// </summary>
+[System.Serializable]
 public class RPGStatModBaseAdd : RPGStatModifier {
     /// <summary>
     /// The order in which the modifier is applied to the stat

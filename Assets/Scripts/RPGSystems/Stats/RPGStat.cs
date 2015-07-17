@@ -4,18 +4,15 @@ using System.Collections;
 /// <summary>
 /// The base class for all other Stats.
 /// </summary>
-[System.Serializable]
 public class RPGStat {
     /// <summary>
     /// Used by the StatName Property
     /// </summary>
-    [SerializeField]
     private string _statName;
 
     /// <summary>
     /// Used by the StatBase Value Property
     /// </summary>
-    [SerializeField]
     private int _statBaseValue;
 
     /// <summary>

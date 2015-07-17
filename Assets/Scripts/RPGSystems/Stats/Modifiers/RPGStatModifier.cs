@@ -5,11 +5,19 @@ using System;
 /// <summary>
 /// The base class for all RPGStatModifiers
 /// </summary>
+[System.Serializable]
 public abstract class RPGStatModifier {
     /// <summary>
     /// Variable used for the Value property
     /// </summary>
+    [SerializeField]
     private float _value = 0f;
+
+    /// <summary>
+    /// Variable used for the Stacks property
+    /// </summary>
+    [SerializeField]
+    private bool _stacks = true;
 
     /// <summary>
     /// Event that triggers when the Stat Modifier's Value property changes
@@ -47,7 +55,10 @@ public abstract class RPGStatModifier {
     /// same type. If value is false, the value of the single modifier will be used
     /// if the sum of stacking modifiers is not greater then the not statcking mod.
     /// </summary>
-    public bool Stacks { get; set; }
+    public bool Stacks {
+        get { return _stacks; }
+        set { _stacks = value; }
+    }
 
     /// <summary>
     /// Default Constructer

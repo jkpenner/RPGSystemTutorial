@@ -4,6 +4,7 @@ using System.Collections;
 /// <summary>
 /// Modifier that takes a percentage of the stat's value
 /// </summary>
+/// [System.Serializable]
 public class RPGStatModTotalPercent : RPGStatModifier {
     /// <summary>
     /// The order in which the modifier is applied to the stat
