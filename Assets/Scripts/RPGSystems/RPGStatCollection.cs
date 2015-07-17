@@ -8,16 +8,24 @@ using System.Collections.Generic;
 /// RPGStats.
 /// </summary>
 public class RPGStatCollection : MonoBehaviour {
+    private Dictionary<RPGStatType, RPGStat> _statDict;
+
     /// <summary>
     /// Dictionary containing all stats held within the collection
     /// </summary>
-    public Dictionary<RPGStatType, RPGStat> StatDict { get; private set; }
+    public Dictionary<RPGStatType, RPGStat> StatDict {
+        get {
+            if (_statDict == null) {
+                _statDict = new Dictionary<RPGStatType, RPGStat>();
+            }
+            return _statDict;
+        }
+    }
 
     /// <summary>
     /// Initializes the RPGStats class
     /// </summary>
     private void Awake() {
-        StatDict = new Dictionary<RPGStatType, RPGStat>();
         ConfigureStats();
     }
 
