@@ -202,7 +202,7 @@ public abstract class RPGEntityLevel : MonoBehaviour {
             Level = LevelMin;
             ExpCurrent = 0;
         }
-        
+
         ExpRequired = GetExpRequiredForLevel(Level);
         if (OnEntityLevelDown != null) {
             OnEntityLevelDown(this, new RPGLevelChangeEventArgs(Level, Level + 1));
