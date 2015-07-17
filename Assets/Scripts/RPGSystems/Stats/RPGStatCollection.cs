@@ -128,7 +128,7 @@ public class RPGStatCollection : MonoBehaviour {
                 Debug.Log("[RPGStats] Trying to remove Stat Modifier from non modifiable stat \"" + target.ToString() + "\"");
             }
         } else {
-            Debug.Log("[RPGStats] Trying to remove Stat Modifier from \"" + target.ToString() + "\", but RPGStats does not contain that stat");
+            Debug.Log("[RPGStats] Trying to remove Stat Modifier from \"" + target.ToString() + "\", but RPGStatCollection does not contain that stat");
         }
     }
 
@@ -171,7 +171,7 @@ public class RPGStatCollection : MonoBehaviour {
                 Debug.Log("[RPGStats] Trying to clear Stat Modifiers from non modifiable stat \"" + target.ToString() + "\"");
             }
         } else {
-            Debug.Log("[RPGStats] Trying to clear Stat Modifiers from \"" + target.ToString() + "\", but RPGStats does not contain that stat");
+            Debug.Log("[RPGStats] Trying to clear Stat Modifiers from \"" + target.ToString() + "\", but RPGStatCollection does not contain that stat");
         }
     }
 
@@ -196,7 +196,32 @@ public class RPGStatCollection : MonoBehaviour {
                 Debug.Log("[RPGStats] Trying to Update Stat Modifiers for a non modifiable stat \"" + target.ToString() + "\"");
             }
         } else {
-            Debug.Log("[RPGStats] Trying to Update Stat Modifiers for \"" + target.ToString() + "\", but RPGStats does not contain that stat");
+            Debug.Log("[RPGStats] Trying to Update Stat Modifiers for \"" + target.ToString() + "\", but RPGStatCollection does not contain that stat");
+        }
+    }
+
+    /// <summary>
+    /// Scales all stats in the collection to the same target level
+    /// </summary>
+    public void ScaleStatCollection(int level) {
+        foreach (var key in StatDict.Keys) {
+            ScaleStat(key, level);
+        }
+    }
+
+    /// <summary>
+    /// Scales the target stat in the collection to the target level
+    /// </summary>
+    public void ScaleStat(RPGStatType target, int level) {
+        if (ContainStat(target)) {
+            var stat = GetStat(target) as IStatScalable;
+            if (stat != null) {
+                stat.ScaleStat(level);
+            } else {
+                Debug.Log("[RPGStats] Trying to Scale Stat with a non scalable stat \"" + target.ToString() + "\"");
+            }
+        } else {
+            Debug.Log("[RPGStats] Trying to Scale Stat for \"" + target.ToString() + "\", but RPGStatCollection does not contain that stat");
         }
     }
 }
