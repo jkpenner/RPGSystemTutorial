@@ -48,10 +48,11 @@ public class RPGStatModifiable : RPGStat, IStatModifiable, IStatValueChange {
     public void UpdateModifiers() {
         _statModValue = 0;
 
-        var orderGroups = _statMods.GroupBy(mod => mod.Order);
+        var orderGroups = _statMods.OrderBy(m => m.Order).GroupBy(m => m.Order);
         foreach(var group in orderGroups) {
             float sum = 0, max = 0;
             foreach(var mod in group) {
+                Debug.Log(mod.Order);
                 if(mod.Stacks == false) {
                     if(mod.Value > max) {
                         max = mod.Value;
