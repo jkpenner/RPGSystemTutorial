@@ -152,26 +152,26 @@ public class RPGStatCollection : MonoBehaviour {
     /// <summary>
     /// Clears all stat modifiers from the target stat.
     /// </summary>
-    public void ClearStatModifier(RPGStatType stat) {
-        ClearStatModifier(stat, false);
+    public void ClearStatModifier(RPGStatType target) {
+        ClearStatModifier(target, false);
     }
 
     /// <summary>
     /// Clears all stat modifiers from the target stat then updates the stat's value.
     /// </summary>
-    public void ClearStatModifier(RPGStatType stat, bool update) {
-        if (ContainStat(stat)) {
-            var modStat = GetStat(stat) as IStatModifiable;
+    public void ClearStatModifier(RPGStatType target, bool update) {
+        if (ContainStat(target)) {
+            var modStat = GetStat(target) as IStatModifiable;
             if (modStat != null) {
                 modStat.ClearModifiers();
                 if (update == true) {
                     modStat.UpdateModifiers();
                 }
             } else {
-                Debug.Log("[RPGStats] Trying to clear Stat Modifiers from non modifiable stat \"" + stat.ToString() + "\"");
+                Debug.Log("[RPGStats] Trying to clear Stat Modifiers from non modifiable stat \"" + target.ToString() + "\"");
             }
         } else {
-            Debug.Log("[RPGStats] Trying to clear Stat Modifiers from \"" + stat.ToString() + "\", but RPGStats does not contain that stat");
+            Debug.Log("[RPGStats] Trying to clear Stat Modifiers from \"" + target.ToString() + "\", but RPGStats does not contain that stat");
         }
     }
 
@@ -187,16 +187,16 @@ public class RPGStatCollection : MonoBehaviour {
     /// <summary>
     /// Updates the target stat's modifier value
     /// </summary>
-    public void UpdateStatModifer(RPGStatType stat) {
-        if (ContainStat(stat)) {
-            var modStat = GetStat(stat) as IStatModifiable;
+    public void UpdateStatModifer(RPGStatType target) {
+        if (ContainStat(target)) {
+            var modStat = GetStat(target) as IStatModifiable;
             if (modStat != null) {
                 modStat.UpdateModifiers();
             } else {
-                Debug.Log("[RPGStats] Trying to Update Stat Modifiers for a non modifiable stat \"" + stat.ToString() + "\"");
+                Debug.Log("[RPGStats] Trying to Update Stat Modifiers for a non modifiable stat \"" + target.ToString() + "\"");
             }
         } else {
-            Debug.Log("[RPGStats] Trying to Update Stat Modifiers for \"" + stat.ToString() + "\", but RPGStats does not contain that stat");
+            Debug.Log("[RPGStats] Trying to Update Stat Modifiers for \"" + target.ToString() + "\", but RPGStats does not contain that stat");
         }
     }
 }
