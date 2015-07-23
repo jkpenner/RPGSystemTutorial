@@ -163,10 +163,10 @@ public abstract class RPGEntityLevel : MonoBehaviour {
         while (true) {
             if (ExpCurrent > ExpRequired) {
                 ExpCurrent -= ExpRequired;
-                IncreaseCurrentLevel();
+                InternalIncreaseCurrentLevel();
             } else if (ExpCurrent < 0) {
                 ExpCurrent += GetExpRequiredForLevel(Level - 1);
-                DecreaseCurrentLevel();
+                InternalDecreaseCurrentLevel();
             } else {
                 break;
             }
@@ -178,7 +178,21 @@ public abstract class RPGEntityLevel : MonoBehaviour {
     /// Does not change the ExpCurrent value.
     /// </summary>
     public void IncreaseCurrentLevel() {
-        Level++;
+        int oldLevel = Level;
+	
+		InternalIncreaseCurrentLevel();
+		
+		if (oldLevel != Level && OnEntityLevelChange != null) {
+            OnEntityLevelChange(this, new RPGLevelChangeEventArgs(Level, oldLevel));
+        }
+    }
+
+    /// <summary>
+    /// Increase the current level and set the ExpRequired for the new level.
+    /// Does not change the ExpCurrent value.
+    /// </summary>
+    private void InternalIncreaseCurrentLevel() {
+        int oldLevel = Level++;
 
         if (Level > LevelMax) {
             Level = LevelMax;
@@ -187,7 +201,7 @@ public abstract class RPGEntityLevel : MonoBehaviour {
 
         ExpRequired = GetExpRequiredForLevel(Level);
         if (OnEntityLevelUp != null) {
-            OnEntityLevelUp(this, new RPGLevelChangeEventArgs(Level, Level - 1));
+            OnEntityLevelUp(this, new RPGLevelChangeEventArgs(Level, oldLevel));
         }
     }
 
@@ -196,7 +210,21 @@ public abstract class RPGEntityLevel : MonoBehaviour {
     /// Does not change the ExpCurrent value.
     /// </summary>
     public void DecreaseCurrentLevel() {
-        Level--;
+		int oldLevel = Level;
+	
+		InternalDecreaseCurrentLevel();
+		
+		if (oldLevel != Level && OnEntityLevelChange != null) {
+            OnEntityLevelChange(this, new RPGLevelChangeEventArgs(Level, oldLevel));
+        }
+	}
+
+    /// <summary>
+    /// Decreases the current level and set the ExpRequired for the new level.
+    /// Does not change the ExpCurrent value.
+    /// </summary>
+    private void InternalDecreaseCurrentLevel() {
+        int oldLevel = Level--;
 
         if (Level < LevelMin) {
             Level = LevelMin;
@@ -205,7 +233,7 @@ public abstract class RPGEntityLevel : MonoBehaviour {
 
         ExpRequired = GetExpRequiredForLevel(Level);
         if (OnEntityLevelDown != null) {
-            OnEntityLevelDown(this, new RPGLevelChangeEventArgs(Level, Level + 1));
+            OnEntityLevelDown(this, new RPGLevelChangeEventArgs(Level, oldLevel));
         }
     }
 

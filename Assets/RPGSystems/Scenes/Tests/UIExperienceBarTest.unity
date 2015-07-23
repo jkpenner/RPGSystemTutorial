@@ -96,6 +96,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 194932720}
   - 114: {fileID: 194932719}
+  - 114: {fileID: 194932721}
   m_Layer: 0
   m_Name: RPGEntity
   m_TagString: Untagged
@@ -129,6 +130,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!114 &194932721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 194932718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20039b144e480104b8f95158df75a758, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entityLevel: {fileID: 194932719}
 --- !u!1 &973260505
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,6 +150,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 973260506}
+  - 114: {fileID: 973260507}
   m_Layer: 0
   m_Name: RPGEntityLevelTest
   m_TagString: Untagged
@@ -156,6 +170,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!114 &973260507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 973260505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0d3b46d54b40246989e61c83230580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 194932721}
 --- !u!1001 &1267821157
 Prefab:
   m_ObjectHideFlags: 0
@@ -239,6 +265,10 @@ Prefab:
       propertyPath: entityLevel
       value: 
       objectReference: {fileID: 194932719}
+    - target: {fileID: 11436208, guid: f8336bcab4c6e5f42b0d4b67c5362fb8, type: 2}
+      propertyPath: entity
+      value: 
+      objectReference: {fileID: 194932721}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f8336bcab4c6e5f42b0d4b67c5362fb8, type: 2}
   m_IsPrefabParent: 0
