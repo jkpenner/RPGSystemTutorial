@@ -2,8 +2,8 @@
 using System.Collections;
 
 namespace RPGSystems.Utility.Database {
-    public class SODatabase : AbstractDatabase<SODatabaseAsset> {
-        protected override void OnAddObject(SODatabaseAsset obj) {
+    public class SODatabase<T> : AbstractDatabase<T> where T : SODatabaseAsset {
+        protected override void OnAddObject(T obj) {
 #if UNITY_EDITOR
             obj.hideFlags = HideFlags.HideInHierarchy;
             UnityEditor.AssetDatabase.AddObjectToAsset(obj, this);
@@ -11,7 +11,7 @@ namespace RPGSystems.Utility.Database {
 #endif
         }
 
-        protected override void OnRemoveObject(SODatabaseAsset obj) {
+        protected override void OnRemoveObject(T obj) {
 #if UNITY_EDITOR
             DestroyImmediate(obj, true);
             UnityEditor.EditorUtility.SetDirty(this);
